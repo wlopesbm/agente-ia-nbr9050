@@ -33,7 +33,7 @@ Responda com justificativas técnicas e recomendações.
 
     with st.spinner("Consultando a NBR 9050 com IA..."):
         response = client.chat.completions.create(
-            model="gpt-4",
+            model="gpt-3.5-turbo",
             messages=[{"role": "user", "content": prompt}]
         )
         resposta = response.choices[0].message.content
