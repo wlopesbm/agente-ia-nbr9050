@@ -4,8 +4,8 @@ import openai
 
 st.set_page_config(page_title="Agente IA - Acessibilidade NBR 9050", layout="centered")
 
-# API Key temporária (usada de forma segura no deploy real)
-openai.api_key = st.secrets["OPENAI_API_KEY"]
+# Inicializa o cliente da OpenAI (V1)
+client = openai.OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
 
 st.title("🧠 Agente IA - Avaliação de Acessibilidade (NBR 9050)")
 
@@ -32,11 +32,11 @@ Responda com justificativas técnicas e recomendações.
     """
 
     with st.spinner("Consultando a NBR 9050 com IA..."):
-        response = openai.ChatCompletion.create(
+        response = client.chat.completions.create(
             model="gpt-4",
             messages=[{"role": "user", "content": prompt}]
         )
-        resposta = response['choices'][0]['message']['content']
+        resposta = response.choices[0].message.content
         st.success("✅ Avaliação concluída!")
         st.markdown("### 📋 Resultado da Análise:")
         st.markdown(resposta)
